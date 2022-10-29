@@ -5,14 +5,14 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.util.Random;
 public class TestCase{
     public WebDriver wdriver;
+
     @BeforeTest
     @Parameters("browser")
     public void startPage(String browser) throws Exception {
-
+        //Cross browser conditions:
         if(browser.equalsIgnoreCase("Chrome")){
             System.setProperty("webdriver.chrome.driver","drivers/chromedriver");
             wdriver  = new ChromeDriver();
@@ -31,14 +31,15 @@ public class TestCase{
     }
     @Test
     public void testCase() throws InterruptedException {
+        //Generate random email address for each test:
         Random randNumb=new Random();
         int numb=randNumb.nextInt(1000);
         String mailTitle = "qatest";
         String mailOrder = String.valueOf(numb);
         String domain = "@gmail.com";
         String email = mailTitle+mailOrder+domain;
-        //System.out.println(email);
 
+        //Test case:
         TestElements control = new TestElements(wdriver);
         control.register(email);
         Thread.sleep(3000);
